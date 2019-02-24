@@ -21,7 +21,7 @@ while (my $rtl = <LIST_FILE>) {
     chomp($bus_name);
     preFormat($bus_name);
     print "Parsing $rtl...\n";
-    open(RTL_FILE, "<$rtl");
+    open(RTL_FILE, "<$rtl") or die "Can't open $rtl\n";
     #Starting data row is 5
     my $data_row = 5;
     while (my $line = <RTL_FILE>) {
