@@ -1,0 +1,43 @@
+Sub CopyResultToChecklist()
+
+    Dim Checklist As Workbook
+    Dim RecordFile As Workbook
+    Dim ResultFile As Workbook
+    Dim RecordFile As Workbook
+    Dim ChecklistSheet As Worksheet
+    Dim sPath As String
+    Dim sheetName As String
+    Dim accessType As String
+    Dim rCopy As Range, rDest As Range
+    Dim row As Long
+    Dim x As Long
+    
+    Set Checklist = Workbooks.Open()
+    Set RecordFile = Workbooks.OpenText(Filename:="", Local:=True)
+    row = RecordFile.Worksheets(1).UsedRange.Rows.Count
+    
+    For x = 1 To row
+        'Get Sheet Name on Checklist and path to result log file
+        sheetName = RecordFile.Worksheets(1).Range("A" & x).Value
+        accessType = RecordFile.Worksheets(1).Range("B" & x).Value
+        sPath = RecordFile.Worksheets(1).Range("C" & x).Value
+       
+        'Choose sheet in Checklist and set destination range
+        Set ChecklistSheet = Checklist.Worksheets(sheetName)
+        If (accessType = "NON_SEC") Then
+            Set rDest = ChecklistSheet.Range("")
+        ElseIf (accessType = "SEC") Then
+            Set rDest = ChecklistSheet.Range("")
+        Else
+            MsgBox ("Wrong access type at cell B" & x)
+        End If
+        
+        'Open result csv file, set copy range
+        Set ResultFile = Workbooks.OpenText(Filename:=sPath, Local:=True)
+        Set rCopy = ResultFile.Worksheets(1).UsedRange
+        
+        rCopy.Copy rDest
+        
+    Next x
+
+End Sub
