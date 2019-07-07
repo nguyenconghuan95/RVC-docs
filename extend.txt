@@ -1,0 +1,19 @@
+Sub extendChecklist()
+    Dim ws As Worksheet
+    Dim nameSht As String
+    Dim i As Long
+    
+    For i = 6 To ThisWorkbook.Worksheets.Count
+        ws = ThisWorkbook.Worksheets(i)
+        nameSht = ws.name
+        ThisWorkbook.Worksheets("CA53").Range().Copy ws.Range("A1")
+        Application.CutCopyMode = False
+        ws.Range().Replace What:="CA53", Replacement:=name
+        If (InStr(nameSht, "CR8_") <> 0) Then
+            ws.Range().EntireColumn.Replace What:="$G", Replacement:="$H"
+        ElseIf (InStr(nameSht, "CR8LLPP") <> 0) Then
+            ws.Range().EntireColumn.Replace What:="$G", Replacement:="$I"
+        
+        
+    Next i
+End Sub
